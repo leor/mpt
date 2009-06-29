@@ -26,7 +26,7 @@ module WrapMethodsExperiment
     attr_reader :orm
     wrappable :orm, '/system/orm'
   
-    def initializer(system_orm)
+    def initialize(system_orm)
       @orm = system_orm
     end
     
@@ -36,7 +36,7 @@ module WrapMethodsExperiment
   end
   
   class TargetDispatcher
-    def initializer
+    def initialize
       @orm = TargetORM.new
     end
     
@@ -61,18 +61,17 @@ module WrapMethodsExperiment
     orm.execute "First SQL"
     
     patch = MonkeyPatch.new
-    Wrap.with '/patches/mokey-patch' => patch do
+    Wrap.with '/patches/monkey-patch' => patch do
       orm.execute "Second SQL"
     end
     
   end
   
   experiment "Wrap by around methods" do
-    TargetDispatcher.wrap_it :process, :by => :self, :using => :transaction, :scope => :around
+    TargetDispatcher.wrap_it( :process, :using => :transaction, :scope => :around ) { @orm }
     TargetController.wrap_with :process, '/system/orm' => TargetORM.new('custom')
   
     dispatcher = TargetDispatcher.new
-    
     dispatcher.process
   end
   

@@ -1,7 +1,8 @@
 
 module MPT
-  class Wrap
+  class Wrap  
     @@wrap_variables = {}
+    @@registry = {}
     class << self
       def with(var ={}, &block)
         thread_id = Thread.current.object_id
@@ -30,50 +31,97 @@ module MPT
 
         res
       end
+      
+      def register(value)
+        @@uuid_generator ||= UUID.new
+        key = @@uuid_generator.generate(:urn).to_s
+        @@registry[key] = value
+        key
+      end
+      
+      def get_from_registry(key)
+        @@registry[key]
+      end
+    end
+    
+    class Blank
+      def self.run(*args)
+      end
     end
   end
 end
 
 class Class
-  class << self
-    def wrap_it(target, options = { :using => :run, :scope => :before })
-      return if options[:by].nil?
-      
-      targets = target
-      targets = [target] unless target.instanceof?( Array )
-      targets.each do |tgt|
-        wrap_it_single(tgt, options)
-      end      
+  def wrap_it(target, options = { :using => :run, :scope => :before }, &block)
+    return if options[:by].nil? && block.nil?
+    
+    targets = target
+    targets = [target] unless target.instance_of?( Array )
+    targets.each do |tgt|
+      wrap_it_single(tgt, options, &block)
+    end      
+  end
+  
+  def wrap_with(target, options = {})
+    return if options.blank?
+    
+    targets = target
+    targets = [target] unless target.instance_of?( Array )
+    targets.each do |tgt|
+      wrap_with_single(tgt, options)
+    end
+  end
+  
+  private
+  def wrap_it_single(target, options, &block)
+    by_name = options[:by]
+    old_method_name = "#{target.to_s}_without_wrap_it"
+    
+    instance_to_call_code = "self"
+    unless by_name == :self 
+      instance_to_call_code = "MPT::Wrap.get( #{by_name.inspect}, MPT::Wrap::Blank )"
     end
     
-    def wrap_with(target, options = {})
-      return if options.blank?
-      
-      targets = target
-      targets = [target] unless target.instanceof?( Array )
-      targets.each do |tgt|
-        wrap_with_single(tgt, options)
+    if by_name.nil? && !block.nil? 
+      block_key = MPT::Wrap.register(block)
+      instance_to_call_code = "self.instance_eval( &MPT::Wrap.get_from_registry(#{block_key.inspect}) )"
+    end
+    
+    scope_call_code = "target_instance.#{options[:using]}(*args, &block); #{old_method_name}(*args, &block)"
+    
+    if options[:scope] == :after
+      scope_call_code = "#{old_method_name}(*args, &block); target_instance.#{options[:using]}(*args, &block)"
+    end
+    
+    if options[:scope] == :around
+      scope_call_code = "target_instance.#{options[:using]}(*args) { #{old_method_name}(*args, &block) }"
+    end
+    
+    code_to_eval = <<-EOC
+      def #{target.to_s}_with_wrap_it(*args, &block)
+        target_instance = #{instance_to_call_code}
+        #{scope_call_code}
       end
-    end
-    
-    private
-    def wrap_it_single(target, options)
       
-    end
+      alias_method_chain #{target.to_sym.inspect}, :wrap_it
+    EOC
     
-    def wrap_with_single(target, options)
-      code = <<-EOC
-        def #{target.to_s}_with_wrap_options(*args)
-          MPT::Wrap.with #{options.inspect} do
-            #{target.to_s}_without_wrap_options(*args)
-          end
+    self.class_eval(code_to_eval, __FILE__, __LINE__)
+  end
+  
+  def wrap_with_single(target, options)
+    key = MPT::Wrap.register(options.dup)
+    code = <<-EOC
+      def #{target.to_s}_with_wrap_options(*args)
+        MPT::Wrap.with MPT::Wrap.get_from_registry(#{key.inspect}) do
+          #{target.to_s}_without_wrap_options(*args)
         end
-        
-        alias_method :#{target.to_s}, :wrap_options
-      EOC
+      end
       
-      self.class_eval(code, __FILE__, __LINE__)
-    end
+      alias_method_chain #{target.to_sym.inspect}, :wrap_options
+    EOC
+    
+    self.class_eval(code, __FILE__, __LINE__)
   end
 end
 

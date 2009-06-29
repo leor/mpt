@@ -52,12 +52,8 @@ module MPT
         channel = @@mpt_subscribers[event_name]
         if channel.size > 0
 
-          mod = Module.new
-          container.extend mod
-
           channel.each do |subscriber|
-            mod.send :define_method, :handler, subscriber[:proc]
-            container.handler *args
+            container.instance_eval_with_args( subscriber[:proc], *args )
           end
         end
 

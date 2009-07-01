@@ -7,4 +7,5 @@ Echoe.new( "holywarez-mpt" ) do |p|
 	p.need_tar_gz = false
 	p.retain_gemspec = true
 	p.gemspec_name = 'mpt.gemspec'
+	p.clean_pattern.push 'lib/*-*'
 end

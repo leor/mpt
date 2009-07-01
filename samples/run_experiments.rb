@@ -1,7 +1,7 @@
 require "rubygems"
 
 gem "holywarez-mpt"
-require "holywarez-mpt"
+require "mpt"
 
 
 require "declarations.rb"

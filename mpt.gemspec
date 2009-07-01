@@ -9,8 +9,8 @@ Gem::Specification.new do |s|
   s.date = %q{2009-07-01}
   s.description = %q{Monkey Patching Toolkit}
   s.email = %q{}
-  s.extra_rdoc_files = ["CHANGELOG", "lib/event.rb", "lib/system.rb", "lib/wrap.rb", "LICENSE", "README"]
-  s.files = ["CHANGELOG", "install_gem.bat", "lib/event.rb", "lib/system.rb", "lib/wrap.rb", "LICENSE", "Manifest", "Rakefile", "README", "run_samples.bat", "samples/call_experiment.rb", "samples/declarations.rb", "samples/ordered_subscribers.rb", "samples/run_experiments.rb", "samples/unordered_subscribers.rb", "samples/wrap_method_experiment.rb", "mpt.gemspec"]
+  s.extra_rdoc_files = ["CHANGELOG", "lib/event.rb", "lib/mpt.rb", "lib/system.rb", "lib/wrap.rb", "LICENSE", "README"]
+  s.files = ["CHANGELOG", "github-test.rb", "install_gem.bat", "lib/event.rb", "lib/mpt.rb", "lib/system.rb", "lib/wrap.rb", "LICENSE", "Manifest", "mpt.gemspec", "Rakefile", "README", "run_samples.bat", "samples/call_experiment.rb", "samples/declarations.rb", "samples/ordered_subscribers.rb", "samples/run_experiments.rb", "samples/unordered_subscribers.rb", "samples/wrap_method_experiment.rb"]
   s.has_rdoc = true
   s.homepage = %q{}
   s.rdoc_options = ["--line-numbers", "--inline-source", "--title", "Holywarez-mpt", "--main", "README"]

@@ -1,7 +1,7 @@
 # -*- encoding: utf-8 -*-
 
 Gem::Specification.new do |s|
-  s.name = %q{holywarez-mpt}
+  s.name = %q{mpt}
   s.version = "0.1.3"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 1.2") if s.respond_to? :required_rubygems_version=
@@ -13,9 +13,9 @@ Gem::Specification.new do |s|
   s.files = ["CHANGELOG", "install_gem.bat", "lib/event.rb", "lib/mpt.rb", "lib/system.rb", "lib/wrap.rb", "LICENSE", "Manifest", "mpt.gemspec", "Rakefile", "README", "run_samples.bat", "samples/call_experiment.rb", "samples/declarations.rb", "samples/ordered_subscribers.rb", "samples/run_experiments.rb", "samples/unordered_subscribers.rb", "samples/wrap_method_experiment.rb"]
   s.has_rdoc = true
   s.homepage = %q{}
-  s.rdoc_options = ["--line-numbers", "--inline-source", "--title", "Holywarez-mpt", "--main", "README"]
+  s.rdoc_options = ["--line-numbers", "--inline-source", "--title", "Mpt", "--main", "README"]
   s.require_paths = ["lib"]
-  s.rubyforge_project = %q{holywarez-mpt}
+  s.rubyforge_project = %q{mpt}
   s.rubygems_version = %q{1.3.2}
   s.summary = %q{Monkey Patching Toolkit}
 

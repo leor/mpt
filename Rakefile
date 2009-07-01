@@ -1,5 +1,5 @@
 require "echoe"
-Echoe.new( "holywarez-mpt" ) do |p|
+Echoe.new( "mpt" ) do |p|
 	p.author = "Anatoly Lapshin"
 	p.summary = "Monkey Patching Toolkit"
 	p.runtime_dependencies = ['activesupport']

@@ -6,5 +6,5 @@ Echoe.new( "holywarez-mpt" ) do |p|
 	p.development_dependencies = []
 	p.need_tar_gz = false
 	p.retain_gemspec = true
-	p.gemspec_name = 'context.gemspec'
+	p.gemspec_name = 'mpt.gemspec'
 end

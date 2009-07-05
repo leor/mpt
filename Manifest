@@ -16,4 +16,4 @@ Manifest
 mpt.gemspec
 Rakefile
 README
-run_samples.bat
+run_examples.bat

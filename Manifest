@@ -12,6 +12,7 @@ README
 run_samples.bat
 samples/call_experiment.rb
 samples/declarations.rb
+samples/instance_eval_with_args.rb
 samples/ordered_subscribers.rb
 samples/run_experiments.rb
 samples/unordered_subscribers.rb

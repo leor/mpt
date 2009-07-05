@@ -53,7 +53,7 @@ module MPT
         if channel.size > 0
 
           channel.each do |subscriber|
-            container.instance_eval_with_args( subscriber[:proc], *args )
+            container.instance_eval_with_args( *args, &subscriber[:proc] )
           end
         end
 

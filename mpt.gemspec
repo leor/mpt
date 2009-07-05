@@ -2,7 +2,7 @@
 
 Gem::Specification.new do |s|
   s.name = %q{mpt}
-  s.version = "0.1.3.1"
+  s.version = "0.1.3.2"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 1.2") if s.respond_to? :required_rubygems_version=
   s.authors = ["Anatoly Lapshin"]
@@ -10,7 +10,7 @@ Gem::Specification.new do |s|
   s.description = %q{Monkey Patching Toolkit}
   s.email = %q{}
   s.extra_rdoc_files = ["CHANGELOG", "lib/event.rb", "lib/mpt.rb", "lib/system.rb", "lib/wrap.rb", "LICENSE", "README"]
-  s.files = ["CHANGELOG", "install_gem.bat", "lib/event.rb", "lib/mpt.rb", "lib/system.rb", "lib/wrap.rb", "LICENSE", "Manifest", "mpt.gemspec", "Rakefile", "README", "run_samples.bat", "samples/call_experiment.rb", "samples/declarations.rb", "samples/instance_eval_with_args.rb", "samples/ordered_subscribers.rb", "samples/run_experiments.rb", "samples/unordered_subscribers.rb", "samples/wrap_method_experiment.rb"]
+  s.files = ["CHANGELOG", "examples/call_experiment.rb", "examples/declarations.rb", "examples/instance_eval_with_args.rb", "examples/ordered_subscribers.rb", "examples/run_experiments.rb", "examples/unordered_subscribers.rb", "examples/wrap_method_experiment.rb", "install_gem.bat", "lib/event.rb", "lib/mpt.rb", "lib/system.rb", "lib/wrap.rb", "LICENSE", "Manifest", "mpt.gemspec", "Rakefile", "README", "run_samples.bat"]
   s.has_rdoc = true
   s.homepage = %q{}
   s.rdoc_options = ["--line-numbers", "--inline-source", "--title", "Mpt", "--main", "README"]

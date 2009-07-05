@@ -1,4 +1,11 @@
 CHANGELOG
+examples/call_experiment.rb
+examples/declarations.rb
+examples/instance_eval_with_args.rb
+examples/ordered_subscribers.rb
+examples/run_experiments.rb
+examples/unordered_subscribers.rb
+examples/wrap_method_experiment.rb
 install_gem.bat
 lib/event.rb
 lib/mpt.rb
@@ -10,10 +17,3 @@ mpt.gemspec
 Rakefile
 README
 run_samples.bat
-samples/call_experiment.rb
-samples/declarations.rb
-samples/instance_eval_with_args.rb
-samples/ordered_subscribers.rb
-samples/run_experiments.rb
-samples/unordered_subscribers.rb
-samples/wrap_method_experiment.rb

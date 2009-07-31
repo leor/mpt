@@ -50,7 +50,7 @@ module MPT
       def trigger_with_object(event_name, object, *args)
         container = MPT::EventContainer.new(object)
         channel = @@mpt_subscribers[event_name]
-        if channel.size > 0
+        if !channel.nil? && channel.size > 0
 
           channel.each do |subscriber|
             container.instance_eval_with_args( *args, &subscriber[:proc] )

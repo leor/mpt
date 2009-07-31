@@ -67,6 +67,12 @@ module MPT
       def clear_event_chain(event_name)
         @@mpt_subscribers.delete(event_name)
       end
+      
+      def clear_owner_subscribers(owner)
+        @@mpt_subscribers.each_pair do |event_name, subscribers|
+          @@mpt_subscribers[event_name] = subscribers.select { |s| owner != s[:options][:owner]  }
+        end
+      end
     end # end of static section
   end # end of class Event
   

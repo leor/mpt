@@ -70,7 +70,7 @@ module MPT
       
       def clear_owner_subscribers(owner)
         @@mpt_subscribers.each_pair do |event_name, subscribers|
-          @@mpt_subscribers[event_name] = subscribers.select { |s| owner != s[:options][:owner]  }
+          @@mpt_subscribers[event_name] = MPT::FilterChain.new + subscribers.select { |s| owner != s[:options][:owner]  }
         end
       end
     end # end of static section

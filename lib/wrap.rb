@@ -19,7 +19,7 @@ module MPT
 
 
         if !temp.blank?
-          res = temp[wrap_name] unless temp[wrap_name].blank?
+          res = temp[wrap_name] unless temp[wrap_name].nil?
         end
 
         if res.nil? && !default.nil?

@@ -63,6 +63,10 @@ module MPT
       def trigger(event_name, *args)
         trigger_with_object(event_name, nil, *args)
       end
+      
+      def clear_event_chain(event_name)
+        @@mpt_subscribers.delete(event_name)
+      end
     end # end of static section
   end # end of class Event
   

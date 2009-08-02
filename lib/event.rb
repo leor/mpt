@@ -110,7 +110,6 @@ class Class
         end
       EOC
       
-      puts code_to_eval
       self.class_eval( code_to_eval, __FILE__, __LINE__ )
     end
     

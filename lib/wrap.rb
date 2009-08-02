@@ -127,12 +127,22 @@ end
 
 class Class
 	def wrappable(accessor_name, wrap_name)
+	  acc_name = accessor_name.to_s
 		code = <<-EOS
-		  def #{accessor_name.to_s}_with_wrap_support
-        MPT::Wrap.get("#{wrap_name}", Proc.new { self.send :"#{accessor_name.to_s}_without_wrap_support" })
+		  def #{acc_name}_with_wrap_support
+        MPT::Wrap.get( "#{wrap_name}", 
+          Proc.new do 
+            if self.respond_to?( :"#{acc_name}_without_wrap_support" )
+              self.send :"#{acc_name}_without_wrap_support"
+            end  
+          end)
 		  end
 
-		  alias_method_chain :#{accessor_name.to_s}, :wrap_support
+      if self.public_instance_methods.include?( "#{acc_name}" )
+		    alias_method_chain :"#{acc_name}", :wrap_support
+		  else
+		    alias :"#{acc_name}" :"#{acc_name}_with_wrap_support"
+	    end
 		EOS
 		
 		class_eval(code, __FILE__, __LINE__)

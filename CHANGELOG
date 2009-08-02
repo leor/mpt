@@ -1,3 +1,4 @@
+v0.1.3.10 wrap ability without accessor
 v0.1.3.9  cache_method helper
 v0.1.3.8  Refactoring FilterChain array subclass
 v0.1.3.7  Bug fix for clear_owner_subscribers

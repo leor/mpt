@@ -77,3 +77,44 @@ module MPT
   end # end of class Event
   
 end
+
+class Class
+  def subscribe( target, options )
+    return if options[:for].blank?
+    
+    unless self.respond_to?( :new_with_subscribe_support )
+      code_to_eval = <<-EOC
+        class << self
+          def register_subscribe(target, options)
+            es = @@event_subscribes ||= {}
+            est = es[options[:for]] ||= [] 
+            est << target
+          end
+          
+          def new_with_subscribe_support(*constructor_arguments)
+            instance = new_without_subscribe_support(*constructor_arguments)
+            ::MPT::Event.subscribe( "#{options[:for]}", :owner => instance ) do |*args|
+              instance.send( "trigger_event", "#{options[:for]}", *args )
+            end
+            instance
+          end
+          
+          alias_method_chain :new, :subscribe_support
+        end
+        
+        private
+        def trigger_event(name, *args)
+          @@event_subscribes[name].each do |method_name|
+            self.send( method_name, *args )
+          end
+        end
+      EOC
+      
+      puts code_to_eval
+      self.class_eval( code_to_eval, __FILE__, __LINE__ )
+    end
+    
+    self.register_subscribe( target, options )
+    
+  end
+end

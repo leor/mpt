@@ -1,3 +1,4 @@
+v0.1.3.12 subscribe class instance methods for events is now supported
 v0.1.3.11 wrappable was renamed to wrapable. "wrappable" will be removed in future versions
 v0.1.3.10 wrap ability without accessor
 v0.1.3.9  cache_method helper

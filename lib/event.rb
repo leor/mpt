@@ -51,7 +51,6 @@ module MPT
         container = MPT::EventContainer.new(object)
         channel = @@mpt_subscribers[event_name]
         if !channel.nil? && channel.size > 0
-
           channel.each do |subscriber|
             container.instance_eval_with_args( *args, &subscriber[:proc] )
           end
@@ -93,8 +92,10 @@ class Class
           
           def new_with_subscribe_support(*constructor_arguments)
             instance = new_without_subscribe_support(*constructor_arguments)
-            ::MPT::Event.subscribe( "#{options[:for]}", :owner => instance ) do |*args|
-              instance.send( "trigger_event", "#{options[:for]}", *args )
+            @@event_subscribes.each_key do |event_name|
+              ::MPT::Event.subscribe( event_name, :owner => instance ) do |*args|
+                instance.send( "trigger_event", event_name, *args )
+              end
             end
             instance
           end

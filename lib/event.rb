@@ -6,7 +6,7 @@ class Array
       filter = self[index]
       filter_opts = filter[:options]
       unless filter_opts[:after].nil?
-        for i in index..self.size-1
+        (self.size-1).downto(index) do |i|
           fo = self[i][:options]
           unless fo[:as].nil?
             if fo[:as] == filter_opts[:after]

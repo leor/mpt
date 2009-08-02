@@ -147,4 +147,6 @@ class Class
 		
 		class_eval(code, __FILE__, __LINE__)
 	end
+	
+	alias :wrapable :wrappable # "wrappable" will be removed in future versions
 end

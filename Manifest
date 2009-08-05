@@ -1,4 +1,8 @@
 CHANGELOG
+LICENSE
+Manifest
+README
+Rakefile
 examples/call_experiment.rb
 examples/declarations.rb
 examples/instance_eval_with_args.rb
@@ -11,9 +15,5 @@ lib/event.rb
 lib/mpt.rb
 lib/system.rb
 lib/wrap.rb
-LICENSE
-Manifest
 mpt.gemspec
-Rakefile
-README
 run_examples.bat

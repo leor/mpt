@@ -25,3 +25,22 @@ class Class
 
   end
 end
+
+module MPT
+  class Security
+    LOW_SECURITY      = 1
+    MEDIUM_SECURITY   = 2
+    HIGH_SECURITY     = 3
+    PARANOIC_SECURITY = 4
+
+    def self.sandbox(level, code = '', &block)
+      Thread.new(level, code, block) do |safe_level, eval_code, eval_block|
+        $SAFE = safe_level
+        eval( eval_code ) unless !eval_code.instance_of?(String) || eval_code.size < 0
+        yield unless eval_block.nil?
+      end.join
+    end
+  end
+end
+
+

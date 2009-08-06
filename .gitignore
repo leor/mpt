@@ -1,3 +1,6 @@
 pkg
 github-test.rb
+test/coverage
 .eprj
+coverage.data
+doc

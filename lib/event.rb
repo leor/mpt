@@ -72,6 +72,10 @@ module MPT
           @@mpt_subscribers[event_name] = subscribers.select { |s| owner != s[:options][:owner]  }
         end
       end
+
+      def method_missing(name, *args)
+        self.trigger(name.to_sym, *args)
+      end
     end # end of static section
   end # end of class Event
   

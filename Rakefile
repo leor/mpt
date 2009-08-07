@@ -1,6 +1,17 @@
 require "echoe"
 require "rake/testtask"
 require "rcov/rcovtask"
+require 'rake/rdoctask'
+
+Rake::RDocTask.new do |rdoc|
+  rdoc.rdoc_dir = 'rdoc'
+  rdoc.title = "MPT - Monkey Patching Toolkit"
+  rdoc.options << '--line-numbers' << '--inline-source'
+  rdoc.options << '--charset' << 'utf-8'
+  rdoc.rdoc_files.include('README', 'CHANGELOG')
+  rdoc.rdoc_files.include('lib/mpt.rb')
+  rdoc.rdoc_files.include('lib/**/*.rb')
+end
 
 Rake::TestTask.new do |t|
   t.libs << "test"
